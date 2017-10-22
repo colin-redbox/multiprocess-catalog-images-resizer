@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category   PhlpDtrt
+ * @package    MultiProcessCatalogImagesResizer
+ * @subpackage etc
+ * @author     Philipp Dittert <philipp.dittert@gmail.com>
+ * @copyright  Copyright (c) 2017 Philipp Dittert <philipp.dittert@gmail.com>
+ * @link       https://github.com/PhlpDtrt/MultiProcessCatalogImagesResizer
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="PhlpDtrt_MultiProcessCatalogImagesResizer" setup_version="0.0.1">
+    </module>
+</config>

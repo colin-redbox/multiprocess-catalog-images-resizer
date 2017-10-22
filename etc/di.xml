@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category   PhlpDtrt
+ * @package    MultiProcessCatalogImagesResizer
+ * @subpackage etc
+ * @author     Philipp Dittert <philipp.dittert@gmail.com>
+ * @copyright  Copyright (c) 2017 Philipp Dittert <philipp.dittert@gmail.com>
+ * @link       https://github.com/PhlpDtrt/MultiProcessCatalogImagesResizer
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="MultiProcessCatalogImagesResizerMasterCommand" xsi:type="object">PhlpDtrt\MultiProcessCatalogImagesResizer\Console\Command\ImagesResizeMasterCommand</item>
+                <item name="MultiProcessCatalogImagesResizerWorkerCommand" xsi:type="object">PhlpDtrt\MultiProcessCatalogImagesResizer\Console\Command\ImagesResizeWorkerCommand</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
