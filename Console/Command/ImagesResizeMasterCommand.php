@@ -139,7 +139,7 @@ class ImagesResizeMasterCommand extends Command
     {
         $this->appState->setAreaCode('catalog');
 
-        $workerCount = $input->getArgument("processCount");
+        $workerCount = $this->validateProcessCount($input->getArgument("processCount"));
 
         try {
             $magentoBin = $this->validateMagentoBinPath($input->getArgument("magentoBin"));
@@ -256,5 +256,22 @@ class ImagesResizeMasterCommand extends Command
         }
 
         return $magentoBin;
+    }
+
+    /**
+     * checks if the process count variable is a number
+     *
+     * @param mixed $processCount the process count variable
+     *
+     * @return int
+     * @throws \Exception
+     */
+    protected function validateProcessCount($processCount)
+    {
+        if (is_numeric($processCount)) {
+            return (int)$processCount;
+        } else {
+            throw new \Exception("'processCount' argument is not a number");
+        }
     }
 }
