@@ -39,6 +39,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ImagesResizeMasterCommand extends Command
 {
     /**
+     * @var string
+     */
+    const magentoBin = "bin/magento";
+
+    /**
      * @var AppState
      */
     protected $appState;
@@ -113,11 +118,6 @@ class ImagesResizeMasterCommand extends Command
         $this->setName('phlpdtrt:multi-process-catalog:images:resize');
         $this->setDescription('Creates resized product images with multiple processes');
         $this->setDefinition([new InputArgument(
-            "magentoBin",
-            InputArgument::REQUIRED,
-            'path to magento cli bin'
-        ),
-            new InputArgument(
                 "processCount",
                 InputArgument::REQUIRED,
                 'the amount of processes'
@@ -142,7 +142,7 @@ class ImagesResizeMasterCommand extends Command
         $workerCount = $this->validateProcessCount($input->getArgument("processCount"));
 
         try {
-            $magentoBin = $this->validateMagentoBinPath($input->getArgument("magentoBin"));
+            $magentoBin = $this->getMagentoBinPath(BP);
 
             $this->prepareProducts();
 
@@ -242,15 +242,16 @@ class ImagesResizeMasterCommand extends Command
     }
 
     /**
-     * validate the given magento bin path
+     * returns the magento bin path based on given root path
      *
-     * @param string $magentoBin the magento bin path
+     * @param string $magentoRootPath the magento root path
      *
      * @return string
      * @throws \Exception
      */
-    protected function validateMagentoBinPath(string $magentoBin)
+    protected function getMagentoBinPath(string $magentoRootPath)
     {
+        $magentoBin = $magentoRootPath . "/" . self::magentoBin;
         if (!is_file($magentoBin) || !is_executable($magentoBin)) {
             throw new \Exception("Magento bin path is invalid");
         }

@@ -18,6 +18,7 @@ use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductColl
 use Magento\Framework\App\State as AppState;
 use Magento\Framework\Exception\NoSuchEntityException;
 use PhlpDtrt\MultiProcessCatalogImagesResizer\Lib\Worker;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -54,6 +55,11 @@ class ImagesResizeWorkerCommand extends Command
     protected $worker;
 
     /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * @param AppState $appState
      * @param ProductCollectionFactory $productCollectionFactory
      * @param \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
@@ -61,11 +67,13 @@ class ImagesResizeWorkerCommand extends Command
      */
     public function __construct(
         AppState $appState,
+        LoggerInterface $logger,
         ProductCollectionFactory $productCollectionFactory,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         ImageCacheFactory $imageCacheFactory
     ) {
         $this->appState = $appState;
+        $this->logger = $logger;
         $this->productCollectionFactory = $productCollectionFactory;
         $this->productRepository = $productRepository;
         $this->imageCacheFactory = $imageCacheFactory;
@@ -123,8 +131,7 @@ class ImagesResizeWorkerCommand extends Command
                 $this->worker->reportFinishedWork($workResult);
             }
         } catch (\Exception $e) {
-            error_log($e->getMessage());
-
+            $this->logger->debug('exception in ImagesResizeWorkerCommand : ' . $e->getMessage());
             return \Magento\Framework\Console\Cli::RETURN_FAILURE;
         }
     }
