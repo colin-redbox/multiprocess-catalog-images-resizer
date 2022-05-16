@@ -2,8 +2,8 @@
   "name": "phlpdtrt/multiprocess-catalog-images-resizer",
   "description": "N/A",
   "require": {
-    "php": "7.0.2|7.0.4|~7.0.6",
-    "magento/framework": "100.1.*"
+    "php": "7.0.2|7.0.4|~7.0.6|~7.4.*",
+    "magento/framework": "100.1.*|103.0.*"
   },
   "type": "magento2-module",
   "license": [
