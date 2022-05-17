@@ -15,6 +15,7 @@ use Magento\Catalog\Model\Product\Image\Cache as ImageCache;
 use Magento\Catalog\Model\Product\Image\CacheFactory as ImageCacheFactory;
 use Magento\Catalog\Model\ResourceModel\Product\Collection as ProductCollection;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductCollectionFactory;
+use Magento\Framework\App\Area;
 use Magento\Framework\App\State as AppState;
 use Magento\Framework\Exception\NoSuchEntityException;
 use PhlpDtrt\MultiProcessCatalogImagesResizer\Lib\Worker;
@@ -103,7 +104,7 @@ class ImagesResizeWorkerCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->appState->setAreaCode('catalog');
+        $this->appState->setAreaCode(Area::AREA_ADMINHTML);
 
         $host = $input->getArgument("host");
 
